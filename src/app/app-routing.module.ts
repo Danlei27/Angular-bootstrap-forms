@@ -7,7 +7,7 @@ import { DateFormComponent } from './date-form/date-form.component';
 const routes: Routes = [
   { path: 'templateForm', component: TemplateFormComponent},
   { path: 'dataForm', component: DateFormComponent},
-  { path: '', pathMatch: 'full', redirectTo: 'templateForm'}
+  { path: '', pathMatch: 'full', redirectTo: 'dataForm'}
 ];
 
 @NgModule({

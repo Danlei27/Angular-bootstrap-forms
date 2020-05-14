@@ -29,7 +29,19 @@ export class DateFormComponent implements OnInit {
   }
 
   onSubmit(){
+    console.log(this.formulario);
+
     this.http.post('https://httpbin.org/post',JSON.stringify(this.formulario.value))
-      .subscribe(dados => console.log(dados));
+      .subscribe(dados => {
+        console.log(dados);
+        // reset o form
+        this.formulario.reset();
+      },
+      (error: any) => alert('erro'));
+  }
+  resetar(){
+    this.formulario.reset()
   }
 }
+
+

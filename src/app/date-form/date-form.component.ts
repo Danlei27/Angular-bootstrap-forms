@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
@@ -23,8 +23,12 @@ export class DateFormComponent implements OnInit {
     //   email: new FormControl(null)
     // });
     this.formulario = this.formBuilder.group({
-      nome: [null],
-      email: [null]
+      nome: [null, [Validators.required]],
+      email: [null, [Validators.required, Validators.email]]
+
+      // Validators.minLength(3), Validators.maxLength(20)
+      //  pattern="[a-z0-9._%+-]{1,40}[@]{1}[a-z]{1,10}[.]{1}[a-z]{3}" 
+
     });
   }
 

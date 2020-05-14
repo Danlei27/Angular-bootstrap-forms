@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule }from '@angular/forms'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TemplateFormModule } from './template-form/template-form.module';
+import { DateFormModule } from './date-form/date-form.module';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { TemplateFormModule } from './template-form/template-form.module';
     AppRoutingModule,
     FormsModule,
     TemplateFormModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DateFormModule
   ],
   providers: [],
   bootstrap: [AppComponent]

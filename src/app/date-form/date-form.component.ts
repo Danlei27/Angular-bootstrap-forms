@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-date-form',
@@ -13,7 +14,10 @@ import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 export class DateFormComponent implements OnInit {
 
   formulario: FormGroup;
-  estados: EstadoBr[];
+  // estados: EstadoBr[];
+
+  estados: Observable<{}> ;
+
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -22,8 +26,12 @@ export class DateFormComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.dropdownService.getEstadosBr()
-    .subscribe((dados: EstadoBr[]) => {this.estados = dados; console.log(dados);});
+    // this.dropdownService.getEstadosBr()
+    // .subscribe((dados: EstadoBr[]) => {
+      // this.estados = dados; console.log(dados);});
+    this.estados = this.dropdownService.getEstadosBr();
+
+
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
     //   email: new FormControl(null)

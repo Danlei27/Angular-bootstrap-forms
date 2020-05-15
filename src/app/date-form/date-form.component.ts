@@ -24,8 +24,14 @@ export class DateFormComponent implements OnInit {
     // });
     this.formulario = this.formBuilder.group({
       nome: [null, [Validators.required]],
-      email: [null, [Validators.required, Validators.email]]
-
+      email: [null, [Validators.required, Validators.email]], 
+        cep:[null, [Validators.required]],
+        numero:[null, [Validators.required]],
+        complemento:[null],
+        rua:[null, [Validators.required]],
+        bairro:[null, [Validators.required]],
+        cidade:[null, [Validators.required]],
+        estado:[null, [Validators.required]] 
       // Validators.minLength(3), Validators.maxLength(20)
       //  pattern="[a-z0-9._%+-]{1,40}[@]{1}[a-z]{1,10}[.]{1}[a-z]{3}" 
 
@@ -48,7 +54,7 @@ export class DateFormComponent implements OnInit {
     this.formulario.reset()
   }
 
-  verificaValidTouched(campo){
+  verificaValidTouched(campo: string){
 
     return !this.formulario.get(campo).valid && this.formulario.get(campo).touched; 
   }
@@ -60,7 +66,7 @@ export class DateFormComponent implements OnInit {
     }
   }
   
-  aplicaCssErro(campo){
+  aplicaCssErro(campo: string){
     return {
       'has-error': this.verificaValidTouched(campo),
       'has-feedback': this.verificaValidTouched(campo)

@@ -3,6 +3,7 @@ import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms'
 import { HttpClient } from '@angular/common/http';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br';
+import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 
 @Component({
   selector: 'app-date-form',
@@ -16,7 +17,8 @@ export class DateFormComponent implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private dropdownService: DropdownService
+    private dropdownService: DropdownService,
+    private cepService: ConsultaCepService
     ) { }
 
   ngOnInit(): void {
@@ -105,25 +107,12 @@ export class DateFormComponent implements OnInit {
   }
   consultaCEP(){
     let cep = this.formulario.get('endereco.cep').value;
-    //Nova variavel "cep" somente com digitos
-    cep = cep.replace(/\D/g, '');
-
-    //Verificar se campo cep possui valor informado.
-    if(cep != ""){
-
-      //Expressão regular para validar o CEP.
-      var validacep = /^[0-9]{8}$/;
-
-      //Valida o formato do CEP.
-      if(validacep.test(cep)){
-
-        this.resetaDadosForm();
-        
-        this.http.get(`//viacep.com.br/ws/${cep}/json`)
-        .subscribe(dados => this.populaDadosForm(dados));
-      }
+    if(cep != null && cep !== ''){
+      this.cepService.consultaCEP(cep)
+      .subscribe(dados => this.populaDadosForm(dados));
     }
   }
+
   populaDadosForm(dados){
           this.formulario.patchValue({
         endereco: {
@@ -136,7 +125,7 @@ export class DateFormComponent implements OnInit {
           }
       
       })     
-      this.formulario.get('nome').setValue('Danlei');
+      // this.formulario.get('nome').setValue('Danlei');
     }
     resetaDadosForm(){
       this.formulario.patchValue({

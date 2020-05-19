@@ -63,7 +63,8 @@ export class DateFormComponent implements OnInit {
     }), 
     cargo: [null],
     tecnologias: [null],
-    newsletter: ['s']
+    newsletter: ['s'],
+    termos: [null, Validators.pattern('true')]
       // Validators.minLength(3), Validators.maxLength(20)
       //  pattern="[a-z0-9._%+-]{1,40}[@]{1}[a-z]{1,10}[.]{1}[a-z]{3}" 
 

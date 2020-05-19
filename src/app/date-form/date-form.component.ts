@@ -19,6 +19,7 @@ export class DateFormComponent implements OnInit {
   estados: Observable<{}> ;
   cargos: any[];
   tecnologias: any[];
+  newsletterOp: any[];  
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -35,6 +36,9 @@ export class DateFormComponent implements OnInit {
     this.cargos = this.dropdownService.getCargos();
 
     this.tecnologias = this.dropdownService.getTecnoligias(); 
+
+    this.newsletterOp = this.dropdownService.getNewsletter();
+
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
     //   email: new FormControl(null)
@@ -58,7 +62,8 @@ export class DateFormComponent implements OnInit {
       estado:[null, [Validators.required]]
     }), 
     cargo: [null],
-    tecnologias: [null]
+    tecnologias: [null],
+    newsletter: ['s']
       // Validators.minLength(3), Validators.maxLength(20)
       //  pattern="[a-z0-9._%+-]{1,40}[@]{1}[a-z]{1,10}[.]{1}[a-z]{3}" 
 

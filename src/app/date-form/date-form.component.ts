@@ -18,6 +18,7 @@ export class DateFormComponent implements OnInit {
 
   estados: Observable<{}> ;
   cargos: any[];
+  tecnologias: any[];
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -33,6 +34,7 @@ export class DateFormComponent implements OnInit {
 
     this.cargos = this.dropdownService.getCargos();
 
+    this.tecnologias = this.dropdownService.getTecnoligias(); 
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
     //   email: new FormControl(null)
@@ -55,7 +57,8 @@ export class DateFormComponent implements OnInit {
       cidade:[null, [Validators.required]],
       estado:[null, [Validators.required]]
     }), 
-    cargo: [null]
+    cargo: [null],
+    tecnologias: [null]
       // Validators.minLength(3), Validators.maxLength(20)
       //  pattern="[a-z0-9._%+-]{1,40}[@]{1}[a-z]{1,10}[.]{1}[a-z]{3}" 
 
@@ -154,8 +157,12 @@ export class DateFormComponent implements OnInit {
       const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' };
       this.formulario.get('cargo').setValue(cargo);
     }
+
     compararCargos(obj1, obj2){
       return obj1 && obj2 ? (obj1.nome === obj2.nome && obj1.nivel === obj2.nivel): obj1 === obj2;
+    }
+    setarTecnologias(){
+      this.formulario.get('tecnologias').setValue(['java','javascript','php']);
     }
 }
 

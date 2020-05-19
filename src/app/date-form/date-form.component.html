@@ -128,17 +128,23 @@
                         {{ cargo.desc }}
                     </option>
                 </select>
-                <app-campo-control-erro 
-                [mostrarErro]="verificaValidTouched('cargo')" 
-                msgErro="Estado é obrigatório">
-                </app-campo-control-erro>
+            </div>
+            <div class="col-md-3" 
+            [ngClass]="aplicaCssErro('tecnologias')">
+                <label for="tecnologias" class="control-label">Tecnologias</label>
+                <select multiple formControlName="tecnologias"  id="tecnologias"  class="form-control" >
+                    <option *ngFor="let tecnologia of tecnologias "  [value]="tecnologia.nome">
+                        {{ tecnologia.desc }}
+                    </option>
+                </select>
             </div>
         </div>
  </div>
  <div class="col-sm-12">
      <button type="submit" style="margin-top: 10px;" class="btn btn-primary">Submit</button>
-     <button type="submit" style="margin-top: 10px;" class="btn" (click)="resetar()">Cancelar</button>
-     <button type="submit" style="margin-top: 10px;" class="btn" (click)="setarCargo()">Cargo</button>
+     <button type="submit" style="margin-top: 10px;" class="btn btn-default" (click)="resetar()">Cancelar</button>
+     <button type="submit" style="margin-top: 10px;" class="btn btn-info" (click)="setarCargo()">Cargo</button>
+     <button type="submit" style="margin-top: 10px;" class="btn btn-primary" (click)="setarTecnologias()">Tecnologias</button>
      <app-form-debug [form]="formulario"></app-form-debug>
  </div>
 </form>

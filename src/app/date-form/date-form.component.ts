@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
+import { Observable, empty } from 'rxjs';
+import { map, distinctUntilChanged, tap, switchMap } from 'rxjs/operators'
 import { FormValidations } from '../shared/form-validations';
 import { VerificaEmailService } from './services/verifica-email.service';
 
@@ -78,6 +78,17 @@ export class DateFormComponent implements OnInit {
       //  pattern="[a-z0-9._%+-]{1,40}[@]{1}[a-z]{1,10}[.]{1}[a-z]{3}" 
 
     });
+
+    this.formulario.get('endereco.cep').statusChanges
+      .pipe(
+        distinctUntilChanged(),
+        tap(value => console.log('status CEP:', value)),
+        switchMap(status => status === 'VALID' ?
+        this.cepService.consultaCEP(this.formulario.get('endereco.cep').value)
+        : empty())
+      )
+      .subscribe(dados => dados ? this.populaDadosForm(dados) : {});
+        
   }
 
   buildFrameworks(){
@@ -165,7 +176,7 @@ export class DateFormComponent implements OnInit {
   }
   consultaCEP(){
     let cep = this.formulario.get('endereco.cep').value;
-    if(cep != null && cep !== ''){
+      if(cep != null && cep !== ''){
       this.cepService.consultaCEP(cep)
       .subscribe(dados => this.populaDadosForm(dados));
     }

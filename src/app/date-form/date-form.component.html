@@ -43,6 +43,10 @@
                 [mostrarErro]="verificaValidTouched('endereco.cep')" 
                 msgErro="Cep é obrigatório">
                 </app-campo-control-erro>
+                <app-campo-control-erro 
+                [mostrarErro]="formulario.get('endereco.cep').hasError('cepInvalido')" 
+                msgErro="CEP inválido.">
+                </app-campo-control-erro> 
             </div>
         </div>
         <!-- campo Número -->
@@ -178,7 +182,6 @@
              [mostrarErro]="!formulario.get('frameworks').valid" 
              msgErro="Selecione 2 opções .">
              </app-campo-control-erro>
-
         </div>
      </div> 
  </div>

@@ -8,8 +8,8 @@
          <input formControlName="nome" id="nome" type="text" class="form-control" 
          placeholder="Nome" >
           <app-campo-control-erro 
-                  [mostrarErro]="verificaValidTouched('nome')" 
-                  msgErro="Email é obrigatório">
+          [mostrarErro]="verificaValidTouched('email')" 
+          msgErro="Nome é obrigatório">
           </app-campo-control-erro>
      </div>
  </div>
@@ -23,7 +23,7 @@
          <input formControlName="email" id="email" type="email" class="form-control" 
          placeholder="nome@email.com" >
           <app-campo-control-erro 
-                  [mostrarErro]="verificaValidTouched('email')" 
+                  [mostrarErro]="verificaValidTouched('confirmarEmail')" 
                   msgErro="Email é obrigatório.">
           </app-campo-control-erro>
           <app-campo-control-erro 
@@ -31,6 +31,20 @@
             msgErro="Email é inválido.">
             </app-campo-control-erro>
      </div>
+   
+     <div class="form-group" [ngClass]="aplicaCssErro('confirmarEmail')">
+        <div class="col-sm-12">
+            <label for="confirmarEmail" class="control-label">Confirmar  Email</label>
+        </div>
+        <div class="col-sm-12">
+            <input formControlName="confirmarEmail" id="confirmarEmail" type="confirmarEmail" class="form-control" 
+            placeholder="nome@email.com" >
+             <app-campo-control-erro 
+             [mostrarErro]="formulario.get('confirmarEmail').hasError('equalsTo')" 
+             msgErro="Emails não são iguais.">
+             </app-campo-control-erro>
+        </div>
+     </div>  
      <div formGroupName="endereco">
         <!-- campo Cep -->
         <div class="form-group">

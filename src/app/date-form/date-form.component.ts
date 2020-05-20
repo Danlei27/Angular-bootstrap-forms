@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormArray, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { DropdownService } from '../shared/services/dropdown.service';
 import { EstadoBr } from '../shared/models/estado-br';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators'
 
 @Component({
   selector: 'app-date-form',
@@ -20,6 +21,7 @@ export class DateFormComponent implements OnInit {
   cargos: any[];
   tecnologias: any[];
   newsletterOp: any[];  
+  frameworks: string[] = ['Angular', 'React', 'Vue', 'Sencha'];
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
@@ -64,19 +66,42 @@ export class DateFormComponent implements OnInit {
     cargo: [null],
     tecnologias: [null],
     newsletter: ['s'],
-    termos: [null, Validators.pattern('true')]
+    termos: [null, Validators.pattern('true')],
+    frameworks: this.buildFrameworks()
       // Validators.minLength(3), Validators.maxLength(20)
       //  pattern="[a-z0-9._%+-]{1,40}[@]{1}[a-z]{1,10}[.]{1}[a-z]{3}" 
 
     });
   }
 
+  buildFrameworks(){
+    const values = this.frameworks.map(v => new FormControl(false));
+    return this.formBuilder.array(values);
+  //  this.formBuilder.array( [
+  //   new FormControl(false),
+  //   new FormControl(false),
+  //   new FormControl(false),
+  //   new FormControl(false)
+  //  ]);
+  }
+  
+  
   onSubmit(){
+    console.log(this.formulario);
+
+    let valueSubmit = Object.assign({}, this.formulario.value);
+    
+    valueSubmit =  Object.assign(valueSubmit,{
+      frameworks: valueSubmit.frameworks
+      .map((v, i) => v ? this.frameworks[i] : null)
+      .filter(v => v !== null)
+    });
+    console.log(valueSubmit)
+    
     if(this.formulario.valid){
 
-      console.log(this.formulario);
-      
-      this.http.post('https://httpbin.org/post',JSON.stringify(this.formulario.value))
+        
+      this.http.post('https://httpbin.org/post',JSON.stringify({}))
       .subscribe(dados => {
         console.log(dados);
         // reset o form
@@ -89,6 +114,7 @@ export class DateFormComponent implements OnInit {
       }
   }
 
+  
   verificaValidacoesForm(formGroup: FormGroup){
     Object.keys(formGroup.controls).forEach(campo => {
       console.log(campo);         

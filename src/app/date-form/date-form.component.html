@@ -164,6 +164,18 @@
              </app-campo-control-erro>
          </div>
      </div>
+     <div class="col-md-3" [ngClass]="aplicaCssErro('frameworks')"> 
+        <label for="frameworks">Frameworks</label> 
+        <div id="frameworks" class="row">
+            <div class="checkbox" class="col-sm-3" 
+            formArrayName="frameworks" 
+            *ngFor="let item of frameworks; let i = index"> 
+                <label  class="checkbox-inline">
+                    <input type="checkbox" [formControlName]="i"> {{ item }}
+                </label>
+            </div>
+        </div>
+     </div> 
  </div>
  <div class="col-sm-12">
      <button type="submit" style="margin-top: 10px;" class="btn btn-primary">Submit</button>

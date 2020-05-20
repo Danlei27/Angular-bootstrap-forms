@@ -6,6 +6,7 @@ import { EstadoBr } from '../shared/models/estado-br';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators'
+import { FormValidations } from '../shared/form-validations';
 
 @Component({
   selector: 'app-date-form',
@@ -76,7 +77,7 @@ export class DateFormComponent implements OnInit {
 
   buildFrameworks(){
     const values = this.frameworks.map(v => new FormControl(false));
-    return this.formBuilder.array(values);
+    return this.formBuilder.array(values, FormValidations.requiredMinCheckbox(2));
   //  this.formBuilder.array( [
   //   new FormControl(false),
   //   new FormControl(false),
@@ -84,6 +85,7 @@ export class DateFormComponent implements OnInit {
   //   new FormControl(false)
   //  ]);
   }
+  
   
   
   onSubmit(){

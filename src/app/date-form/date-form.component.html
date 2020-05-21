@@ -137,26 +137,26 @@
             </div>
         </div>
         <!-- campo cidade -->
-        <div class="form-group">
+        <!-- <div class="form-group">
             <div class="col-md-4"
             [ngClass]="aplicaCssErro('endereco.cidade')">
                 <label for="cidade" class="control-label">Cidade</label>
                 <input formControlName="cidade"  id="cidade" type="text" class="form-control">
                 <app-error-msg [control]="formulario.get('endereco.cidade')" label="Cidade">
                 </app-error-msg>      
-                <!-- <app-campo-control-erro 
+                 <app-campo-control-erro 
                 [mostrarErro]="verificaValidTouched('endereco.cidade')" 
                 msgErro="Cidade é obrigatório">
-                </app-campo-control-erro> -->
+                </app-campo-control-erro> 
             </div>
-        </div>
+        </div> -->
         <!-- campo estado -->
         <div class="form-group">
             <div class="col-md-3"
             [ngClass]="aplicaCssErro('endereco.estado')">
                 <label for="estado" class="control-label">Estado</label>
                 <select formControlName="estado"  id="estado"  class="form-control">
-                    <option *ngFor="let estado of estados | async"  [value]="estado.sigla">
+                    <option *ngFor="let estado of estados "  [value]="estado.sigla">
                         {{ estado.nome }}
                     </option>
                 </select>
@@ -167,6 +167,18 @@
                 msgErro="Estado é obrigatório">
                 </app-campo-control-erro> -->
             </div>
+
+            <div class="col-md-4"
+            [ngClass]="aplicaCssErro('endereco.cidade')">
+                <label for="cidade" class="control-label">Cidade</label>
+                <select formControlName="cidade"  id="cidade"  class="form-control">
+                    <option *ngFor="let cidade of cidades "  [value]="cidade.nome">
+                        {{ cidade.nome }}
+                    </option>
+                </select>
+                <app-error-msg [control]="formulario.get('endereco.cidade')" label="Cidade">
+                </app-error-msg>      
+            </div>        
         </div>
         </div>
         <div class="form-group">

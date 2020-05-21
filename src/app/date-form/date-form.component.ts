@@ -9,6 +9,8 @@ import { map, distinctUntilChanged, tap, switchMap } from 'rxjs/operators'
 import { FormValidations } from '../shared/form-validations';
 import { VerificaEmailService } from './services/verifica-email.service';
 import { BaseFormComponent } from '../shared/base-form/base-form.component';
+import { Cidade } from '../shared/models/cidades';
+// import { EstadosBr } from './estados-br';
 
 @Component({
   selector: 'app-date-form',
@@ -18,12 +20,13 @@ import { BaseFormComponent } from '../shared/base-form/base-form.component';
 export class DateFormComponent extends BaseFormComponent implements OnInit {
   
   // formulario: FormGroup;
-  // estados: EstadoBr[];
-
-  estados: Observable<{}> ;
+  
+  // estados: Observable<{}> ;
+  cidades: Cidade[];
   cargos: any[];
   tecnologias: any[];
   newsletterOp: any[];  
+  estados: EstadoBr[];
   frameworks: string[] = ['Angular', 'React', 'Vue', 'Sencha'];
   constructor(
     private formBuilder: FormBuilder,
@@ -34,21 +37,24 @@ export class DateFormComponent extends BaseFormComponent implements OnInit {
     ) { 
       super();
     }
-
-  ngOnInit(): void {
-    // this.dropdownService.getEstadosBr()
-    // .subscribe((dados: EstadoBr[]) => {
-      // this.estados = dados; console.log(dados);});
-    // this.verificaEmailService.verificarEmail('email@email.com').subscribe();
+    
+    ngOnInit(): void {
+      // this.dropdownService.getEstadosBr()
+      // .subscribe((dados: EstadoBr[]) => {
+        // this.estados = dados; console.log(dados);});
+        // this.verificaEmailService.verificarEmail('email@email.com').subscribe();
+        
+        // this.estados = this.dropdownService.getEstadosBr();
+        
+      this.dropdownService.getEstadosBr()
+      .subscribe(dados => this.estados = dados);
       
-    this.estados = this.dropdownService.getEstadosBr();
-
-    this.cargos = this.dropdownService.getCargos();
-
-    this.tecnologias = this.dropdownService.getTecnoligias(); 
-
-    this.newsletterOp = this.dropdownService.getNewsletter();
-
+      this.cargos = this.dropdownService.getCargos();
+      
+      this.tecnologias = this.dropdownService.getTecnoligias(); 
+      
+      this.newsletterOp = this.dropdownService.getNewsletter();
+    
     // this.formulario = new FormGroup({
     //   nome: new FormControl(null),
     //   email: new FormControl(null)
@@ -91,6 +97,17 @@ export class DateFormComponent extends BaseFormComponent implements OnInit {
         : empty())
       )
       .subscribe(dados => dados ? this.populaDadosForm(dados) : {});
+      
+      this.formulario.get('endereco.estado').valueChanges
+      .pipe(
+        tap(estado => console.log('Novo estado: ', estado)),
+        map(estado => this.estados.filter(e => e.sigla === estado)),
+        map(estados => estados && estados.length > 0 ? estados[0].id : empty()),
+        switchMap((estadoId: number) => this.dropdownService.getCidades(estadoId)),
+        tap(console.log)
+      )
+      .subscribe(cidades => this.cidades = cidades); 
+      // this.dropdownService.getCidades(8).subscribe(console.log);
         
   }
 

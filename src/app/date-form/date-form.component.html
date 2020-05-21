@@ -1,6 +1,12 @@
 <form  class="horizontal" [formGroup]="formulario" (ngSubmit)="onSubmit()">
+
+ <app-input-field class="col-sm-12" formControlName="nome" 
+ [classeCss]="aplicaCssErro('nome')"
+ id="nome" label="Nome" [control]="formulario.get('nome')"
+ ></app-input-field>   
+
     <!--campo Nome -->
- <div class="form-group" [ngClass]="aplicaCssErro('nome')">
+ <!-- <div class="form-group" [ngClass]="aplicaCssErro('nome')">
      <div class="col-sm-12">
          <label for="nome" class="control-label">Nome</label>
      </div>
@@ -10,7 +16,7 @@
           <app-error-msg [control]="formulario.get('nome')" label="Nome">
           </app-error-msg>
      </div>
- </div>
+ </div> -->
 
  <!-- campo Email -->
  <div class="form-group" [ngClass]="aplicaCssErro('email')">
@@ -67,10 +73,12 @@
             [ngClass]="aplicaCssErro('endereco.cep')">
                 <label for="cep" class="control-label">CEP</label>
                 <input formControlName="cep"  id="cep" type="text" class="form-control">
-                <app-campo-control-erro 
+                <app-error-msg [control]="formulario.get('endereco.cep')" label="CEP">
+                </app-error-msg>      
+                <!-- <app-campo-control-erro 
                 [mostrarErro]="verificaValidTouched('endereco.cep')" 
                 msgErro="Cep é obrigatório">
-                </app-campo-control-erro>
+                </app-campo-control-erro> -->
                 <app-campo-control-erro 
                 [mostrarErro]="formulario.get('endereco.cep').hasError('cepInvalido')" 
                 msgErro="CEP inválido.">
@@ -83,10 +91,12 @@
             [ngClass]="aplicaCssErro('endereco.numero')">
                 <label for="numero" class="control-label">Número</label>
                 <input formControlName="numero"  id="numero" type="text" class="form-control">
-                <app-campo-control-erro 
+                <app-error-msg [control]="formulario.get('endereco.numero')" label="Numero">
+                </app-error-msg>      
+                <!-- <app-campo-control-erro 
                 [mostrarErro]="verificaValidTouched('endereco.numero')" 
                 msgErro="Número é obrigatório">
-                </app-campo-control-erro>
+                </app-campo-control-erro> -->
             </div>
         </div>
         <!-- campo complemento -->
@@ -104,10 +114,12 @@
             </div>
             <div class="col-sm-12">
                 <input formControlName="rua"  id="rua" type="text" class="form-control">
-                <app-campo-control-erro 
+                <app-error-msg [control]="formulario.get('endereco.rua')" label="Rua">
+                </app-error-msg>      
+                <!-- <app-campo-control-erro 
                 [mostrarErro]="verificaValidTouched('endereco.rua')" 
                 msgErro="Rua é obrigatório">
-                </app-campo-control-erro>
+                </app-campo-control-erro> -->
             </div>
         </div>
         <!-- campo bairro -->
@@ -116,10 +128,12 @@
            [ngClass]="aplicaCssErro('endereco.bairro')">
                 <label for="bairro" class="control-label">Bairro</label>
                 <input formControlName="bairro"  id="bairro" type="text" class="form-control">
-                <app-campo-control-erro 
+                <app-error-msg [control]="formulario.get('endereco.bairro')" label="Bairro">
+                </app-error-msg>      
+           <!--<app-campo-control-erro 
                 [mostrarErro]="verificaValidTouched('endereco.bairro')" 
                 msgErro="Bairro é obrigatório">
-                </app-campo-control-erro>
+                </app-campo-control-erro>-->
             </div>
         </div>
         <!-- campo cidade -->
@@ -128,10 +142,12 @@
             [ngClass]="aplicaCssErro('endereco.cidade')">
                 <label for="cidade" class="control-label">Cidade</label>
                 <input formControlName="cidade"  id="cidade" type="text" class="form-control">
-                <app-campo-control-erro 
+                <app-error-msg [control]="formulario.get('endereco.cidade')" label="Cidade">
+                </app-error-msg>      
+                <!-- <app-campo-control-erro 
                 [mostrarErro]="verificaValidTouched('endereco.cidade')" 
                 msgErro="Cidade é obrigatório">
-                </app-campo-control-erro>
+                </app-campo-control-erro> -->
             </div>
         </div>
         <!-- campo estado -->
@@ -144,10 +160,12 @@
                         {{ estado.nome }}
                     </option>
                 </select>
-                <app-campo-control-erro 
+                <app-error-msg [control]="formulario.get('endereco.estado')" label="Estado">
+                </app-error-msg>      
+                <!-- <app-campo-control-erro 
                 [mostrarErro]="verificaValidTouched('endereco.estado')" 
                 msgErro="Estado é obrigatório">
-                </app-campo-control-erro>
+                </app-campo-control-erro> -->
             </div>
         </div>
         </div>
@@ -206,10 +224,12 @@
                     <input type="checkbox" [formControlName]="i"> {{ item }}
                 </label>
             </div>
-            <app-campo-control-erro 
+            <app-error-msg [control]="formulario.get('frameworks')" label="Selecione 2 opções">
+            </app-error-msg>  
+            <!-- <app-campo-control-erro 
              [mostrarErro]="!formulario.get('frameworks').valid" 
              msgErro="Selecione 2 opções .">
-             </app-campo-control-erro>
+             </app-campo-control-erro> -->
         </div>
      </div> 
  </div>
